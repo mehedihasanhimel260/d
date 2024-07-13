@@ -1,22 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Landing Page with Auto Opening Links</title>
+    <title>Review by ai</title>
 </head>
+
 <body>
-    <h1>Welcome to the Landing Page</h1>
-    <p>The links will attempt to open automatically in new tabs or iframes if blocked.</p>
+    <h1>click always allow for contact me</h1>
+    <div style="height: 7000px;display: block;"></div>
 
     <script>
         function openLinksInPopupsOrFrames() {
-            const links = [
-                { url: 'https://www.example1.com', name: 'Example1Popup' },
-                { url: 'https://www.example2.com', name: 'Example2Popup' },
-                { url: 'https://1xlite-352419.top/en', name: 'Example3Popup' },
-                { url: 'https://www.example4.com', name: 'Example4Popup' },
-                { url: 'https://www.example5.com', name: 'Example5Popup' }
+            const links = [{
+                    url: 'https://www.example1.com',
+                    name: 'Example1Popup'
+                },
+                {
+                    url: 'https://www.example2.com',
+                    name: 'Example2Popup'
+                },
+                {
+                    url: 'https://www.example3.com',
+                    name: 'Example3Popup'
+                },
+                {
+                    url: 'https://www.example4.com',
+                    name: 'Example4Popup'
+                },
+                {
+                    url: 'https://www.google.com',
+                    name: 'Example5Popup'
+                }
             ];
 
             links.forEach((link, index) => {
@@ -30,7 +46,7 @@
                         iframe.style.height = '400px'; // Adjust height as needed
                         document.body.appendChild(iframe);
                     }
-                }, 1 * index); // 3 second delay between attempting to open each popup
+                }, 0 * index); // 3 second delay between attempting to open each popup
             });
         }
 
@@ -40,4 +56,5 @@
         };
     </script>
 </body>
+
 </html>
