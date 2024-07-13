@@ -1,19 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Review by Mehedi</title>
+    <title>Landing Page with Auto Opening Links</title>
+    <script>
+        function openLinksSequentially() {
+            const links = document.querySelectorAll('.automatically');
+            let delay = 1000; // 1 second
+
+            links.forEach((link, index) => {
+                setTimeout(() => {
+                    const newWindow = window.open(link.href, '_blank');
+                    if (newWindow) {
+                        newWindow.blur();
+                        window.focus();
+                    }
+                }, delay * index);
+            });
+        }
+
+        window.onload = function() {
+            openLinksSequentially();
+        };
+    </script>
 </head>
-
 <body>
-
-    <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fmehedihasan.himel.50746%2Fposts%2Fpfbid03vfZimoXGjZbi4QgAMmtnYUmkB5wMCRwS5ZJpQsmd7SKcqife3A9Vmqi6NBTpHbal&show_text=true&width=500" width="500" height="178" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
-    <a class="deract-link" href="fb.com" target="_blank">a</a>
-    <a class="deract-link" href="youtube.com" target="_blank">b</a>
-    <a class="deract-link" href="google.com" target="_blank">c</a>
-    <script></script>
+    <h1>Welcome to the Landing Page</h1>
+    <p>The links will open automatically in new tabs.</p>
+    <a class="automatically" href="https://www.example1.com" target="_blank">Link 1</a><br>
+    <a class="automatically" href="https://www.example2.com" target="_blank">Link 2</a><br>
+    <a class="automatically" href="https://www.example3.com" target="_blank">Link 3</a><br>
+    <a class="automatically" href="https://www.example4.com" target="_blank">Link 4</a><br>
+    <a class="automatically" href="https://www.example5.com" target="_blank">Link 5</a>
 </body>
-
 </html>
