@@ -45,7 +45,7 @@
         if (links.length > 0) {
           let opened = openLink(links[0]);
           if (!opened) {
-            showMessage('Pop-up blocked. Please allow pop-ups for this site.');
+            showMessage(' Please allow pop-ups for this site. Pop-up blocked.');
             setTimeout(() => {
               opened = openLink(links[0]);
               if (!opened) {
