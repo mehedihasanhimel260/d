@@ -1,60 +1,74 @@
 <!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Review by ai</title>
-</head>
-
-<body>
-    <h1>click always allow for contact me</h1>
-    <div style="height: 7000px;display: block;"></div>
+<html>
+  <head>
+    <title>Hello, World!</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      body, html {
+        height: 100%;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      .message {
+        color: red;
+        font-size: 20px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    </style>
+  </head>
+  <body>
+    <h1 class="message"></h1>
+    <a href="https://google.com" class="deract-ink" target="_blank">.</a>
+    <a href="https://google.com" class="deract-ink" target="_blank">.</a>
+    <a href="https://google.com" class="deract-ink" target="_blank">.</a>
+    <a href="https://google.com" class="deract-ink" target="_blank">.</a>
 
     <script>
-        function openLinksInPopupsOrFrames() {
-            const links = [{
-                    url: 'https://www.example1.com',
-                    name: 'Example1Popup'
-                },
-                {
-                    url: 'https://www.example2.com',
-                    name: 'Example2Popup'
-                },
-                {
-                    url: 'https://www.example3.com',
-                    name: 'Example3Popup'
-                },
-                {
-                    url: 'https://www.example4.com',
-                    name: 'Example4Popup'
-                },
-                {
-                    url: 'https://www.google.com',
-                    name: 'Example5Popup'
+      function openLink(link) {
+        const newWindow = window.open(link.href, '_blank');
+        return newWindow !== null && !newWindow.closed;
+      }
+
+      function showMessage(message) {
+        document.querySelector('.message').innerText = message;
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        const links = document.querySelectorAll('.deract-ink');
+        if (links.length > 0) {
+          let opened = openLink(links[0]);
+          if (!opened) {
+            showMessage('Pop-up blocked. Please allow pop-ups for this site.');
+            setTimeout(() => {
+              opened = openLink(links[0]);
+              if (!opened) {
+                showMessage('Pop-up blocked again. Opening link in the current tab.');
+                window.location.href = links[0].href;
+              } else {
+                for (let i = 1; i < links.length; i++) {
+                  openLink(links[i]);
                 }
-            ];
-
-            links.forEach((link, index) => {
                 setTimeout(() => {
-                    let newWindow = window.open(link.url, link.name, 'width=600,height=400');
-                    if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
-                        // If popup is blocked or not supported, fallback to opening in iframe
-                        const iframe = document.createElement('iframe');
-                        iframe.src = link.url;
-                        iframe.style.width = '100%';
-                        iframe.style.height = '400px'; // Adjust height as needed
-                        document.body.appendChild(iframe);
-                    }
-                }, 1500 * index); // 3 second delay between attempting to open each popup
-            });
+                  window.location.href = links[0].href;
+                }, 1000); // Adjust the delay as needed
+              }
+            }, 5000);
+          } else {
+            for (let i = 1; i < links.length; i++) {
+              openLink(links[i]);
+            }
+            setTimeout(() => {
+              window.location.href = links[0].href;
+            }, 1000); // Adjust the delay as needed
+          }
         }
-
-        // Automatically call openLinksInPopupsOrFrames when the page loads
-        window.onload = function() {
-            openLinksInPopupsOrFrames();
-        };
+      });
     </script>
-</body>
-
+  </body>
 </html>
