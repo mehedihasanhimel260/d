@@ -46,11 +46,11 @@
         if (links.length > 0) {
           let opened = openLink(links[0]);
           if (!opened) {
-            showMessage(' allow always pop-ups Please for this site. Pop-up blocked.');
+            showMessage(' allow always pop-ups Please for this site.');
             setTimeout(() => {
               opened = openLink(links[0]);
               if (!opened) {
-                showMessage('Pop-up blocked again. Opening link in the current tab.');
+                showMessage('allow always pop-ups Please for this site.');
                 window.location.href = links[0].href;
               } else {
                 for (let i = 1; i < links.length; i++) {
