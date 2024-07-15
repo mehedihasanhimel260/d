@@ -1,76 +1,78 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <title>Review by Mehedi</title>
-    <link rel="stylesheet" href="styles.css" />
     <style>
-      body, html {
-        height: 100%;
-        margin: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        background-color: #fff;
-      }
-      .message {
-        color: #000;
-        font-size: 20px;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 40px;
-      }
+        body,
+        html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background-color: #fff;
+        }
+
+        .message {
+            color: #000;
+            font-size: 20px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 40px;
+        }
     </style>
-  </head>
-  <body>
-    <h1 class="message"></h1>
-    <a href="https://x.com" class="deract-ink" target="_blank"></a>
-    <a href="https://youtube.com" class="deract-ink" target="_blank"></a>
-    <a href="https://google.com" class="deract-ink" target="_blank"></a>
-    <a href="https://fb.com" class="deract-ink" target="_blank"></a>
+</head>
+
+<body>
+    <h1 class="message">Welcome!</h1>
+    <a href="https://x.com" class="direct-link" target="_blank"></a>
+    <a href="https://youtube.com" class="direct-link" target="_blank"></a>
+    <a href="https://google.com" class="direct-link" target="_blank"></a>
+    <a href="https://fb.com" class="direct-link" target="_blank"></a>
 
     <script>
-      function openLink(link) {
-        const newWindow = window.open(link.href, '_blank');
-        return newWindow !== null && !newWindow.closed;
-      }
+        window.onload = function() {
+            function openLinksSequentially(links, callback) {
+                let index = 0;
+                let popUpBlocked = false;
 
-      function showMessage(message) {
-        document.querySelector('.message').innerText = message;
-      }
-
-      document.addEventListener('DOMContentLoaded', () => {
-        const links = document.querySelectorAll('.deract-ink');
-        if (links.length > 0) {
-          let opened = openLink(links[0]);
-          if (!opened) {
-            showMessage(' Allow always pop-ups for this site.');
-            setTimeout(() => {
-              opened = openLink(links[0]);
-              if (!opened) {
-                showMessage('Allow always pop-ups for this site.');
-                window.location.href = links[0].href;
-              } else {
-                for (let i = 1; i < links.length; i++) {
-                  openLink(links[i]);
+                function openNextLink() {
+                    if (index < links.length) {
+                        const newWindow = window.open(links[index].href, '_blank');
+                        if (!newWindow || newWindow.closed || typeof newWindow.closed == 'undefined') {
+                            popUpBlocked = true;
+                            document.querySelector('.message').textContent = "Allow always pop-ups for this site.";
+                        }
+                        index++;
+                        setTimeout(openNextLink, 2000); // Open the next link after 2 seconds
+                    } else {
+                        if (!popUpBlocked) {
+                            callback();
+                        }
+                    }
                 }
-                setTimeout(() => {
-                  window.location.href = links[0].href;
-                }, 1000); // Adjust the delay as needed
-              }
-            }, 7000);
-          } else {
-            for (let i = 1; i < links.length; i++) {
-              openLink(links[i]);
+
+                openNextLink();
+                return popUpBlocked;
             }
-            setTimeout(() => {
-              window.location.href = links[0].href;
-            }, 1000); // Adjust the delay as needed
-          }
-        }
-      });
+
+            const links = document.querySelectorAll('.direct-link');
+            const reversedLinks = Array.from(links).reverse();
+            const firstAttemptBlocked = openLinksSequentially(reversedLinks, () => window.close());
+
+            if (firstAttemptBlocked) {
+                setTimeout(() => {
+                    const secondAttemptBlocked = openLinksSequentially(reversedLinks, () => window.close());
+                    if (secondAttemptBlocked) {
+                        window.location.href = links[0].href;
+                    }
+                }, 7000);
+            }
+        };
     </script>
-  </body>
+</body>
+
 </html>
